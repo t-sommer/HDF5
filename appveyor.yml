@@ -1,0 +1,35 @@
+image:
+  - Visual Studio 2015
+
+build:
+  # download the HDF5 sources
+  - appveyor DownloadFile https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.10/hdf5-1.10.1/src/hdf5-1.10.1.tar.gz
+  
+  # extract the archive
+  - 7z e hdf5-1.10.1.tar.gz
+
+  # configure and generate the Visual Studio solution
+  - cd hdf5-1.10.1
+  
+  # build x86
+  - mkdir msvc2015-x86
+  - cd msvc2015-x86
+  - cmake -G "Visual Studio 14 2015" -D BUILD_SHARED_LIBS:BOOL=OFF -D "CMAKE_C_FLAGS_RELEASE:STRING=/MT /O2 /Ob2 /D NDEBUG" -D "CMAKE_CXX_FLAGS_RELEASE:STRING=/MT /O2 /Ob2 /D NDEBUG" -D HDF5_BUILD_EXAMPLES:BOOL=ON ..
+  - msbuild hl\src\hdf5_hl-static.vcxproj /t:Clean,Build /p:Configuration=Release
+  - msbuild hl\src\hdf5_hl-static.vcxproj /t:Clean,Build /p:Configuration=Debug
+  
+  # build x64
+  - cd ..
+  - mkdir msvc2015-x64
+  - cd msvc2015-x64
+  - cmake -G "Visual Studio 14 2015 Win64" -D BUILD_SHARED_LIBS:BOOL=OFF -D "CMAKE_C_FLAGS_RELEASE:STRING=/MT /O2 /Ob2 /D NDEBUG" -D "CMAKE_CXX_FLAGS_RELEASE:STRING=/MT /O2 /Ob2 /D NDEBUG" -D HDF5_BUILD_EXAMPLES:BOOL=ON ..
+  - msbuild hl\src\hdf5_hl-static.vcxproj /t:Clean,Build /p:Configuration=Release
+  - msbuild hl\src\hdf5_hl-static.vcxproj /t:Clean,Build /p:Configuration=Debug
+
+  # create the archive
+  - cd ..\..
+  - 7z a hdf5-1.10.1-msvc2015-mt.zip hdf5-1.10.1\COPYING hdf5-1.10.1\src\*.h hdf5-1.10.1\hl\src\*.h hdf5-1.10.1\msvc2015-*\*.h hdf5-1.10.1\msvc2015-*\bin\*\*.lib
+
+artifacts:
+  - path: hdf5-1.10.1-msvc2015-mt.zip
+    name: hdf5-1.10.1-msvc2015-mt
