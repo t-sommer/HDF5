@@ -32,4 +32,3 @@ build:
 
 artifacts:
   - path: hdf5-1.10.1-msvc2015-mt.zip
-    name: hdf5-1.10.1-msvc2015-mt
