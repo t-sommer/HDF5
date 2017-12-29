@@ -5,10 +5,10 @@ build: false
 
 install:
   # download the HDF5 sources
-  - appveyor DownloadFile https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.10/hdf5-1.10.1/src/hdf5-1.10.1.tar.gz
+  - appveyor DownloadFile https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.10/hdf5-1.10.1/src/hdf5-1.10.1.zip
   
   # extract the archive
-  - 7z e hdf5-1.10.1.tar.gz
+  - 7z e hdf5-1.10.1.zip
 
   # configure and generate the Visual Studio solution
   - cd hdf5-1.10.1
