@@ -1,7 +1,9 @@
 image:
   - Visual Studio 2015
 
-build:
+build: false
+
+install:
   # download the HDF5 sources
   - appveyor DownloadFile https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.10/hdf5-1.10.1/src/hdf5-1.10.1.tar.gz
   
