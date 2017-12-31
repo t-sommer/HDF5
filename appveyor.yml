@@ -16,21 +16,21 @@ install:
   # build x86
   - mkdir msvc2015-x86
   - cd msvc2015-x86
-  - cmake -G "Visual Studio 14 2015" -D BUILD_SHARED_LIBS:BOOL=OFF -D "CMAKE_C_FLAGS_RELEASE:STRING=/MT /O2 /Ob2 /D NDEBUG" -D "CMAKE_CXX_FLAGS_RELEASE:STRING=/MT /O2 /Ob2 /D NDEBUG" -D HDF5_BUILD_EXAMPLES:BOOL=ON ..
-  - msbuild hl\src\hdf5_hl-static.vcxproj /t:Clean,Build /p:Configuration=Release
+  - cmake ..
   - msbuild hl\src\hdf5_hl-static.vcxproj /t:Clean,Build /p:Configuration=Debug
+  - msbuild hl\src\hdf5_hl-static.vcxproj /t:Clean,Build /p:Configuration=Release
   
   # build x64
   - cd ..
   - mkdir msvc2015-x64
   - cd msvc2015-x64
-  - cmake -G "Visual Studio 14 2015 Win64" -D BUILD_SHARED_LIBS:BOOL=OFF -D "CMAKE_C_FLAGS_RELEASE:STRING=/MT /O2 /Ob2 /D NDEBUG" -D "CMAKE_CXX_FLAGS_RELEASE:STRING=/MT /O2 /Ob2 /D NDEBUG" -D HDF5_BUILD_EXAMPLES:BOOL=ON ..
-  - msbuild hl\src\hdf5_hl-static.vcxproj /t:Clean,Build /p:Configuration=Release
+  - cmake ..
   - msbuild hl\src\hdf5_hl-static.vcxproj /t:Clean,Build /p:Configuration=Debug
+  - msbuild hl\src\hdf5_hl-static.vcxproj /t:Clean,Build /p:Configuration=Release
 
   # create the archive
   - cd ..\..
-  - 7z a hdf5-1.10.1-msvc2015-mt.zip hdf5-1.10.1\COPYING hdf5-1.10.1\src\*.h hdf5-1.10.1\hl\src\*.h hdf5-1.10.1\msvc2015-*\*.h hdf5-1.10.1\msvc2015-*\bin\*\*.lib
+  - 7z a hdf5-1.10.1-msvc2015.zip hdf5-1.10.1\COPYING hdf5-1.10.1\src\*.h hdf5-1.10.1\hl\src\*.h hdf5-1.10.1\msvc2015-*\*.h hdf5-1.10.1\msvc2015-*\bin\*\*.lib hdf5-1.10.1\msvc2015-*\bin\Debug\*.pdb
 
 artifacts:
-  - path: hdf5-1.10.1-msvc2015-mt.zip
+  - path: hdf5-1.10.1-msvc2015.zip
